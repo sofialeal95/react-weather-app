@@ -8,6 +8,7 @@ function App() {
         <a
           href="https://github.com/sofialeal95/react-weather-app"
           target="_blank"
+          rel="noreferrer"
         >
           Open-source code
         </a>{" "}
