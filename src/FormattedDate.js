@@ -1,7 +1,12 @@
 import React from "react";
 
 export default function FormattedDate(props) {
-  console.log(props.date);
+  let timezone = props.timezone / 3600;
+  let currentDate = new Date();
+  let utcOffset = currentDate.getTimezoneOffset();
+  currentDate.setMinutes(currentDate.getMinutes() + utcOffset);
+  let locationOffset = timezone * 60;
+  currentDate.setMinutes(currentDate.getMinutes() + locationOffset);
 
   let days = [
     "Sunday",
@@ -26,21 +31,32 @@ export default function FormattedDate(props) {
     "November",
     "December",
   ];
-  let day = days[props.date.getDay()];
-  let month = months[props.date.getMonth()];
-  let date = props.date.getDate();
-  let hours = props.date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
+  let day = days[currentDate.getDay()];
+  let month = months[currentDate.getMonth()];
+  let date = currentDate.getDate();
+  let hours = currentDate.getHours();
+  let dayTime = "";
+  if (hours > 11) {
+    dayTime = "PM";
+  } else {
+    dayTime = "AM";
   }
-  let minutes = props.date.getMinutes();
+  if (hours > 12) {
+    hours = hours - 12;
+  } else {
+    if (hours === 0) {
+      hours = 12;
+    }
+  }
+
+  let minutes = currentDate.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
 
   return (
     <div>
-      {day}, {month} {date} {hours}:{minutes}
+      {day}, {month} {date} {hours}:{minutes} {dayTime}
     </div>
   );
 }

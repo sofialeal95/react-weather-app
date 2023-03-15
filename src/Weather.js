@@ -6,34 +6,35 @@ import AppData from "./AppData";
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
+
   function handleResponse(response) {
     setWeatherData({
       ready: true,
-      temperature: response.data.temperature.current,
-      city: response.data.city,
-      country: response.data.country,
-      humidity: response.data.temperature.humidity,
+      temperature: response.data.main.temp,
+      city: response.data.name,
+      country: response.data.sys.country,
+      humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
-      description: response.data.condition.description,
-      iconURL: response.data.condition.icon_url,
-      date: new Date(response.data.time * 1000),
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      timezone: response.data.timezone,
     });
   }
 
   function search() {
-    let apiKey = "07ba4d8cb74b4302a070a7o56cbtf467";
-    let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    let apiKey = "85e4603063fd43211ed43127217c26c1";
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     axios.get(apiURL).then(handleResponse);
+  }
+
+  function handleNewInput(event) {
+    setCity(event.target.value);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     search();
-  }
-
-  function handleNewInput(event) {
-    setCity(event.target.value);
   }
 
   if (weatherData.ready) {
