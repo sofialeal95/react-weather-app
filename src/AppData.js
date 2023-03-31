@@ -1,5 +1,6 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
+import WeatherTemp from "./WeatherTemp";
 
 export default function AppData(props) {
   let iconURL = `https://openweathermap.org/img/wn/${props.data.icon}@2x.png`;
@@ -22,8 +23,7 @@ export default function AppData(props) {
       <div className="row mt-3">
         <div className="col-6">
           <img src={iconURL} alt={props.data.description} />
-          <span className="temp">{Math.round(props.data.temperature)}</span>
-          <span className="unit">°C</span>
+          <WeatherTemp celsius={props.data.temperature} />
         </div>
         <div className="col-6">
           <ul>

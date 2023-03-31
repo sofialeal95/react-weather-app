@@ -38,6 +38,17 @@
   width: 60px;
 }
 
+.Weather a {
+  color: #587bbb !important;
+  font-weight: 600 !important;
+  text-decoration: none;
+}
+
+.Weather .btn {
+  background-color: #587bbb !important;
+  border-color: #587bbb !important;
+}
+
 .Weather .temp {
   color: rgb(33, 33, 33);
   display: inline-block;
